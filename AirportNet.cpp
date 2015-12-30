@@ -6,12 +6,12 @@ Sec2
 #include "AirportNet.h"
 #include <map>
 #include <fstream>
-
+#include <cstdlib>
 
 AirportNet::AirportNet(const string aname)
 {
 //    fileName = aname;
-    ifstream myFile(aname);
+    ifstream myFile(aname.c_str());
     string line("");
 
     if ( !myFile.is_open() )
@@ -95,6 +95,8 @@ AirportNet::~AirportNet()
 }
 
 void AirportNet::listRoutesOnHubAirport(const string aname){
+    if(numVertices == 0)
+        cout << "No city in this networks\n"<<endl;
 
     if(m[aname] == 0 && aname != n[0]){
         cout << endl;
@@ -141,6 +143,8 @@ void AirportNet::uni(int p, int q)
 }
 
 void AirportNet::findConnectedComponents(){
+    if(numVertices == 0)
+        cout << "No city in this networks\n"<<endl;
     connectivity = new int[numVertices];
     // initialize the connectivity array for ********************union-find algorithms***********************
     for(int i=0;i<numVertices;i++){
@@ -185,6 +189,8 @@ void AirportNet::findConnectedComponents(){
 
 
 void AirportNet::listDirectFlights(const string aname){
+    if(numVertices == 0)
+        cout << "No city in this networks\n"<<endl;
     if(m[aname] == 0 && aname != n[0]){
         cout << aname << " does not exist in this airport." << endl;
         return;
@@ -200,6 +206,8 @@ void AirportNet::listDirectFlights(const string aname){
 // changing floyd-warshall algorithm to reconstruct the path
 // allows us to construct all shortest path from one node to other.
 void AirportNet::displayMostCentralAirport(){
+if(numVertices == 0)
+        cout << "No city in this networks\n"<<endl;
 
    // initialization begins
     int ** floyd = new int*[numVertices];
